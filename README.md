@@ -26,3 +26,11 @@ Kelas   : B
     Kemudian, variabel `http_request` digunakan untuk mengumpulkan baris-baris permintaan HTTP yang dikirimkan oleh browser ke server. Metode `lines()` dari `BufReader` menghasilkan iterator yang mengembalikan `Result<String, std::io::Error>`. Selanjutnya, baris-baris yang diterima dikumpulkan dalam sebuah vektor hingga ditemukan baris kosong, yang menandai akhir dari permintaan HTTP (karena browser mengakhiri permintaan dengan dua karakter *new line* berturut-turut).
 
     Dengan cara ini, fungsi `handle_connection` bertanggung jawab membaca dan memproses permintaan HTTP dari *stream* yang diterima oleh server.
+
+
+2. Commit 2 - Returning HTML
+    ![alt text](image.png)
+
+    Beberapa tambahan kode terlihat setelah variabel `http_request`. Terdapat variabel `status_line` untuk status dari *request*. Lalu, program membaca file `hello.html` menggunakan `fs::read_to_string` dan menyimpannya ke variable `contents`. Ada juga variable `length` yang merepresentasikan panjang dari variabel `contents`. Selanjutnya, respon akan disimpan ke variabel `response`. `format!` akan digunakan untuk konten file sebagai *response body*. 
+
+    `http_request` akan di-*ignore* sehingga semua *request* akan diterima dan akan mengembalikan *file* `hello.html`, artinya *request* `127.0.0.1:7878/sesuatu` juga akan mengembalikan respon yang sama.
