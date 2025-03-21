@@ -112,3 +112,9 @@ Kelas   : B
     - Kode sebelumnya mengandung duplikasi
     - *Readability* kode menjadi lebih baik
     - *Maintainability* kode menjadi lebih baik sehingga akan lebih mudah apabila ada perubahan/improvisasi kode di masa depan
+
+4. Commit 4 - Simulation of Slow Request
+   
+   Pada commit ini, terdapat beberapa perubahan dalam fungsi `handle_connection`. Blok `if` yang sebelumnya digunakan untuk memeriksa request kini diganti dengan `match`, yang memungkinkan pemrosesan lebih terstruktur. Saat ini, aplikasi dapat menangani tiga jenis request: `/`, `/sleep`, dan permintaan lainnya.
+   
+   Ketika pengguna mengakses endpoint `/sleep`, aplikasi akan berhenti sejenak (sleep) selama sepuluh detik sebelum melanjutkan eksekusi. Karena aplikasi masih berjalan di dalam single-threaded server, setiap permintaan akan diproses satu per satu. Akibatnya, jika ada pengguna yang mengakses `/sleep`, semua permintaan lain harus menunggu hingga eksekusi request tersebut selesai. Hal ini menyebabkan antrean yang tidak efisien, terutama jika banyak pengguna mengakses aplikasi secara bersamaan.
